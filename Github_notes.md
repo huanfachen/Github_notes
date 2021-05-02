@@ -24,5 +24,27 @@
   - It is always better to explicitly add things to the staging area instead of using `git add .` or `git commit -a`.
 - Directories in Git
   - Git does not track directories on their own, only files within them. This is why you will see `.gitkeep` files in otherwise empty directories. These files are not special and their sole purpose is to populate a directory so that Git adds it to the repo.
-  - 
+
+## Questions
+
+- `Syntax in .gitignore. Can I use regular expression?`
+
+  - If you want to ignore files in a folder `result`, use `result/` in .gitignore
+  - If you simply use `result`, Git treats it as a shell glob pattern and checks for a match against the pathname relative to the location
+  - we can check the status of ignored files using **git status \-\-ignored**
+
+- How would you ignore all `.dat` files in your root directory except for `final.dat`?
+
+  - ```
+    *.dat
+    !final.dat
+    ```
+
+  - The rules are executed in the order.
+
+  - If you have previously committed .dat files before adding the .gitignore rules, these .dat files will not be ignored. Only future additions of `.dat` files will be ignored
+
+- 
+
+- 
 
