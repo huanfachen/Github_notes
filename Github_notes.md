@@ -40,7 +40,7 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
   - **git remote set-url [name] [newurl]**: changes the URL
   - **git remote rename [oldname] [newname]**: changes the local alias by which a remote is known
 - names of repo
-  - `origin`: the default shortname that Git uses for a remote repository when you clone that remote repository. It refers to a URI, like git@...
+  - `origin`: the default shortname that Git uses for a remote repository when you clone that remote repository. It refers to a URI, like git@.… If you use `git clone`, the `origin` would be automatically set up.
   - `remote`: a remote is a copy of the repository that is hosted somewhere else. There can be multiple remote
   - `master`: the default branch
 
@@ -73,8 +73,10 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
 
 - How to set up the SSH for Github and use a password manager to remember passwords?
 
-- The Owner pushed commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub?
+- **The Owner pushed commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub?**
 
   - On the command line, the Collaborator can use `git fetch origin master` to get the remote changes into the local repository, but without merging them. Then by running `git diff master origin/master` the Collaborator will see the changes output in the terminal.
-  - 
+  - On GitHub, the Collaborator can go to the repository and click on “commits” to view the most recent commits pushed to the repository.
+
+- 
 
