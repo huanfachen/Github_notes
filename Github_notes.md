@@ -9,7 +9,7 @@
 
 ## Diagram
 
-![img](C:\Users\Huanfa Chen\Documents\GitHub\Github_notes\git-transport.png)
+![img](https://github.com/huanfachen/Github_notes/blob/main/git-transport.png)
 
 Credit [here](https://images.osteele.com/2008/git-transport.png)
 
