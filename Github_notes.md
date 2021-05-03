@@ -5,6 +5,7 @@
 ## References
 
 - [Basic tutorial on Github](http://swcarpentry.github.io/git-novice/)
+- [Excellent lecture on open science](http://swcarpentry.github.io/git-novice/10-open/index.html)
 - [Advanced on Github: My Git Workflow by Oliver Steele](https://blog.osteele.com/2008/05/my-git-workflow/)
 
 ## Diagram
@@ -24,9 +25,10 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
   - It is always better to explicitly add things to the staging area instead of using `git add .` or `git commit -a`.
 - Directories in Git
   - Git does not track directories on their own, only files within them. This is why you will see `.gitkeep` files in otherwise empty directories. These files are not special and their sole purpose is to populate a directory so that Git adds it to the repo.
-- 
 - `git push -u`
   - This option is synonymous with the `--set-upstream-to` option for the `git branch` command, and is used to associate the current branch with a remote branch so that the `git pull` command can be used without any arguments. To do this, simply use `git push -u origin master` once the remote has been set up.
+- `git checkout`
+  - Updates files in the working tree (aka workspace) to match the version in the index or the specified tree. If no pathspec was given, *git checkout* will also update `HEAD` to set the specified branch as the current branch.
 
 ## Repos
 
@@ -43,6 +45,7 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
   - `origin`: the default shortname that Git uses for a remote repository when you clone that remote repository. It refers to a URI, like git@.… If you use `git clone`, the `origin` would be automatically set up.
   - `remote`: a remote is a copy of the repository that is hosted somewhere else. There can be multiple remote
   - `master`: the default branch
+  - `HEAD`: a file for storing current branch info (or the hash value of the latest commit). If you use `checkout` to change the branch, HEAD will change. To see what HEAD points to, you can use `cat .git/HEAD`. Usually it is `refs/heads/master`, which is a file that normally has the hash value of the latest commit of master.
 
 ## Questions
 
@@ -78,5 +81,43 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
   - On the command line, the Collaborator can use `git fetch origin master` to get the remote changes into the local repository, but without merging them. Then by running `git diff master origin/master` the Collaborator will see the changes output in the terminal.
   - On GitHub, the Collaborator can go to the repository and click on “commits” to view the most recent commits pushed to the repository.
 
+- Suggestions on resolving conflicts?
+
+  - Pull from upstream more frequently, especially before starting new work
+  - Use topic branches to segregate work, merging to master when complete
+  - Make smaller more atomic commits
+  - Where logically appropriate, break large files into smaller ones so that it is less likely that two authors will alter the same file simultaneously
+
+- **How to resolve a conflict regarding a text file when your `git push origin main` fails due to the newer updates on the origin? You want to merge the updates of origin first and then update your changes** 
+
+  - `git pull origin main`: merge the newer updates from origin to local repo. Note that this will create a commit and you would need to input the message.
+  - Then, `git push origin main`
+  - Note that the version control system does not allow people to overwrite each other’s changes blindly, but highlights conflicts so that they can be resolved.
+
+- What if the conflict happens to a binary file `mars.png` which can’t be merged?
+
+  - There are two copies of a.png. If you want to use the local version (called HEAD), use the following.
+
+    - `git checkout HEAD mars.png`
+    - `git add mars.png`
+    - `git commit -m ‘Use local version of mars.png’`
+
+  - We can also keep both images by renaming, removing, and adding them
+
+    - ```
+      git checkout HEAD mars.jpg
+      git mv mars.jpg mars-surface.jpg
+      git checkout 439dc8c0 mars.jpg
+      mv mars.jpg mars-sky.jpg
+      git rm mars.jpg
+      git add mars-surface.jpg
+      git add mars-sky.jpg
+      git commit -m "Use two images: surface and sky"
+      ```
+
+- **Conflicts can also be minimized with project management strategies**
+  - Clarify who is responsible for what areas with your collaborators
+  - Discuss what order tasks should be carried out in with your collaborators so that tasks expected to change the same lines won’t be worked on simultaneously
+  - If the conflicts are stylistic churn (e.g. tabs vs. spaces), establish a project convention that is governing and use code style tools (e.g. `htmltidy`, `perltidy`, `rubocop`, etc.) to enforce, if necessary
 - 
 
