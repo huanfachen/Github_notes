@@ -101,6 +101,10 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
 
 - How to set up the SSH for Github and use a password manager to remember passwords?
 
+  - [Tutorial](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh)
+  - In the final step, use `cat ~/.ssh/id_ed25519.pub` to get the public key
+  - Set up ssh of a Github project: `git remote add origin git@github.com:nikhilbhardwaj/abc.git` or `git remote set-url origin git@github.com:nikhilbhardwaj/abc.git`
+
 - **The Owner pushed commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub?**
 
   - On the command line, the Collaborator can use `git fetch origin master` to get the remote changes into the local repository, but without merging them. Then by running `git diff master origin/master` the Collaborator will see the changes output in the terminal.
