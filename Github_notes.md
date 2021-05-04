@@ -7,10 +7,11 @@
 - [Basic tutorial on Github](http://swcarpentry.github.io/git-novice/)
 - [Excellent lecture on open science](http://swcarpentry.github.io/git-novice/10-open/index.html)
 - [Advanced on Github: My Git Workflow by Oliver Steele](https://blog.osteele.com/2008/05/my-git-workflow/)
+- [Better Explained: Learning Git](https://betterexplained.com/articles/aha-moments-when-learning-git/)
 
 ## Diagram
 
-![img](https://github.com/huanfachen/Github_notes/blob/main/git-transport.png)
+![img](https://github.com/huanfachen/Github_notes/raw/main/git-transport.png)
 
 Credit [here](https://images.osteele.com/2008/git-transport.png)
 
@@ -46,6 +47,14 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
   - `remote`: a remote is a copy of the repository that is hosted somewhere else. There can be multiple remote
   - `master`: the default branch
   - `HEAD`: a file for storing current branch info (or the hash value of the latest commit). If you use `checkout` to change the branch, HEAD will change. To see what HEAD points to, you can use `cat .git/HEAD`. Usually it is `refs/heads/master`, which is a file that normally has the hash value of the latest commit of master.
+- Seeing branches as virtual directories in the .git folder
+  - `git checkout master`: switch to master branch (`cd master`)
+  - `git branch dev`: create new branch from existing (`cp * dev`) but not changing branches. Like Save As. You still need to `cd` with `git checkout dev`
+  - `git merge dev`: (when in master) pull in changes from dev (`cp dev/* .`)
+  - `git branch`: list all branches (`ls`)
+  - `git branch -a`: list all local and remote branch
+  - A good inner dialogue: **change to dev directory (checkout)... make changes... save changes (add/commit)... change to master directory... copy in changes from dev (merge)**.
+  - 
 
 ## Questions
 
@@ -68,11 +77,27 @@ Credit [here](https://images.osteele.com/2008/git-transport.png)
 
   - If you have previously committed .dat files before adding the .gitignore rules, these .dat files will not be ignored. Only future additions of `.dat` files will be ignored
 
-- How to undo `git add a.txt` ?
+- How to undo local changes before adding?
 
-  - `git checkout a.txt` will undo local changes (local copy still modified)
+  - `git checkout a.txt` will undo local changes and restore file from staging area
+  
+- How to undo `git add a.txt` but keeping the local changes?
+
   - `git reset HEAD foo.txt` will remove from staging area (local copy still modified)
-  - `git reset HEAD~` will undo commit??
+
+- If I delete a file using `git rm` by mistake, how can I get it back from staging area?
+
+  - `git rm` will remove file from current virtual directory and index
+  - Use `git checkout HEAD file`. This command will restore file & index from HEAD
+
+- If I delete a file using `rm a.txt` by mistake, how can I get it back?
+
+  - Use `git checkout a.txt`
+
+- How to undo `git commit`
+
+  - `git reset --soft HEAD^`: undo commit & keep changes in the working tree
+  - `git reset --hard HEAD^`: undo commit and reset working tree to the last commit
 
 - How to set up the SSH for Github and use a password manager to remember passwords?
 
